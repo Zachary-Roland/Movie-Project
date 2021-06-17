@@ -134,11 +134,17 @@
             </select>
           </div>
           <div class="radios">
-            <input type="radio" name="type" id="Either" value="Either" checked="checked"/>
-            <label for="Either">Either</label>
-            <input type="radio" name="type" id="Movie" value="Movie" />
+            <input
+              type="radio"
+              name="type"
+              id="Any"
+              value=""
+              checked="checked"
+            />
+            <label for="Any">Either</label>
+            <input type="radio" name="type" id="Movie" value="movie" />
             <label for="Movie">Movie</label>
-            <input type="radio" name="type" id="Series" value="Series" />
+            <input type="radio" name="type" id="Series" value="series" />
             <label for="Series">Series</label>
           </div>
         </form>
@@ -146,35 +152,34 @@
           <button id="test">Test</button>
         </div>
       </aside>
-      <main>Main</main>
+      <main></main>
     </div>
     <script>
       document
         .getElementById("test")
         .addEventListener("click", function fetchTest() {
-          let title = "s=" + document.getElementById("searchBox").value;
+          let title = "&s=" + document.getElementById("searchBox").value;
           const radios = document.getElementsByName("type");
           let type;
+          const e = document.getElementById("yearDropdown");
+          let year = "&y=" + e.value;
           for (var radio of radios) {
-              if (radio.checked !== "Either") {
-                  type = "&type=" + radio.value;
+            if (radio.checked) {
+          type = "&type=" + radio.value;
+          console.log(type)
+          fetch("http://www.omdbapi.com/?apikey=5d6248fb" + title + type + year)
+          .then(function (response) {
+                console.log(response);
+                if (!response.ok) {
+                  console.log(response.status);
                 }
-            }
-        const e = document.getElementById("yearDropdown");
-        // let selected = e.options[e.selectedIndex].text;
-        let year = "&y=" + e.value;
-          fetch("http://www.omdbapi.com/?apikey=5d6248fb&" + title + type + year)
-            .then(function (response) {
-              console.log(response);
-              if (!response.ok) {
-                console.log(response.status);
-              }
-              return response.json();
-            })
-            .then(function (res) {
-              console.log(res);
-            });
-        });
+                return response.json();
+              })
+              .then(function (res) {
+                console.log(res);
+              });
+            }};
+          });
     </script>
   </body>
 </html>
