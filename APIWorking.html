@@ -6,25 +6,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-      .entirePage {
-        height: 95vh;
-        width: 98vw;
-      }
       .flex {
         display: flex;
         flex-flow: row wrap;
       }
       aside {
-        border: 3px solid blue;
-        flex-basis: calc(30% - 6px);
+        background-color: lightblue;
+        flex-basis: 100%;
+        min-height: 30%;
       }
       main {
         border: 3px solid blue;
-        flex-basis: calc(70% - 6px);
+        flex-basis: 100%;
+        min-height: 70%;
+        text-align: center;
       }
       .testDiv {
         flex-basis: 100%;
         justify-content: center;
+      }
+      img {
+        width: 65%;
+      }
+      .radios {
+        flex-basis: 100%;
+        justify-content: space-around;
+      }
+      .radioOption {
+        flex-basis: calc(30%);
+      }
+      /* $grid-breakpoints: (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px, xxl: 1400px */
+      @media (min-width: 576px) {
+        aside {
+          flex-basis: calc(40% - 6px);
+          min-height: 100%;
+        }
+        main {
+          flex-basis: calc(60% - 6px);
+          min-height: 100%
+        }
+      }
+      @media (min-width: 768px) {
+        img {
+        width: 40%;
+      }
+        aside {
+          flex-basis: calc(35% - 6px);
+          min-height: 100%;
+        }
+        main {
+          flex-basis: calc(65% - 6px);
+          min-height: 100%
+        }
+      }
+      @media (min-width: 992px) {
+        aside {
+          flex-basis: calc(30% - 6px);
+          min-height: 100%;
+        }
+        main {
+          flex-basis: calc(70% - 6px);
+          min-height: 100%
+        }
       }
     </style>
   </head>
@@ -133,17 +176,23 @@
               <option value="2025">2025</option>
             </select>
           </div>
-          <div class="radios">
+          <div class="radios flex">
+            <div class="radioOption">
             <input type="radio" name="type" id="Any" value="" checked="checked" />
             <label for="Any">Either</label>
+          </div>
+          <div class="radioOption">
             <input type="radio" name="type" id="Movie" value="movie" />
             <label for="Movie">Movie</label>
+          </div>
+          <div class="radioOption">
             <input type="radio" name="type" id="Series" value="series" />
             <label for="Series">Series</label>
           </div>
+          </div>
         </form>
         <div class="testDiv">
-          <button id="test">Test</button>
+          <button id="test">Search!</button>
         </div>
       </aside>
       <main id="main" ></main>
@@ -152,41 +201,61 @@
       document
         .getElementById("test")
         .addEventListener("click", function fetchTest() {
-          let title = "&s=" + document.getElementById("searchBox").value;
+          //remove prior results if any
+          const node = document.getElementById("main");
+          node.querySelectorAll('*').forEach(n => n.remove());
+          //set up variables for search results, with url snippets
+          const title = "&s=" + document.getElementById("searchBox").value;
           const radios = document.getElementsByName("type");
+          //creat type variable to be used later
           let type;
           const e = document.getElementById("yearDropdown");
-          let year = "&y=" + e.value;
+          const year = "&y=" + e.value;
+          //make type equal to the checked radio button.
           for (var radio of radios) {
             if (radio.checked) {
           type = "&type=" + radio.value;
+          //run search with user inputs
           fetch("http://www.omdbapi.com/?apikey=5d6248fb" + title + type + year)
+          //log results
           .then(function (response) {
                 console.log(response);
+                //if response is NOT ok show response status
                 if (!response.ok) {
                   console.log(response.status);
                 }
                 return response.json();
               })
               .then(function (res) {
-                console.log(res);
+                console.log(res); 
+                //TODO Could use a forEach instead of a for loop? Look into later
                 for (let i = 0; i < res.Search.length; i++) {
-                  addSearchResults();
+                  //creat variables for each index of results
                   let resultsTitle = res.Search[i].Title
                   let resultsType = res.Search[i].Type
                   let resultsYear = res.Search[i].Year
-                  console.log(`Title: ${resultsTitle} Type: ${resultsType} Year: ${resultsYear}`)
+                  // code to create divs to hold search results
+                  const main = document.getElementById("main");
+                  const div = document.createElement("div")
+                  //Add search results to the text of the new div
+                  let textContent = document.createTextNode(`${resultsTitle}, ${resultsType}, ${resultsYear}.`);
+                  const newDiv = document.getElementById("main").appendChild(div);
+                  let poster = res.Search[i].Poster;
+                  let img = document.createElement("img");
+                  let linebr = document.createElement("br")
+                  img.src = poster;
+                  img.title = "movie poster (broken image link)";
+                  newDiv.appendChild(textContent)
+                  newDiv.appendChild(linebr)
+                  newDiv.appendChild(img)
+                  document.getElementById("main").appendChild(newDiv);
+                  
+                  // Console log test to make sure it's working:
+                  // console.log(`Title: ${resultsTitle} Type: ${resultsType} Year: ${resultsYear}`)
                 }
               });
             }};
           });
-      function addSearchResults () {
-        const main = document.getElementById("main");
-        const div = document.createElement("div")
-        const newDiv = document.getElementById("main").createElement(div);
-        // const newContent = main.createTextNode("This is a test!");
-        // newDiv.appendChild(newContent);
-      }
     </script>
   </body>
 </html>
