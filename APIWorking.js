@@ -15,6 +15,8 @@ document
           for (var radio of radios) {
             if (radio.checked) {
           type = "&type=" + radio.value;
+          if (title.length > 5) {
+            document.getElementById("main").innerText = ""
           //run search with user inputs
           fetch("http://www.omdbapi.com/?apikey=5d6248fb" + title + type + year)
           //log results
@@ -27,7 +29,8 @@ document
                 return response.json();
               })
               .then(function (res) {
-                console.log(res); 
+                const resultLength = res.Search.length;
+                document.getElementById("main").innerText = `Your search returned ${resultLength} results:` 
                 //TODO Could use a forEach instead of a for loop? Look into later
                 for (let i = 0; i < res.Search.length; i++) {
                   //creat variables for each index of results
@@ -55,5 +58,8 @@ document
                   // console.log(`Title: ${resultsTitle} Type: ${resultsType} Year: ${resultsYear}`)
                 }
               });
+            } else {
+                document.getElementById("main").innerText = "Please enter 3 or more characters!"
             }};
+        }   
           });
