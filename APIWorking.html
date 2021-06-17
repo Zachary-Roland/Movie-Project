@@ -176,6 +176,12 @@
               })
               .then(function (res) {
                 console.log(res);
+                for (let i = 0; i < res.Search.length; i++) {
+                  let resultsTitle = res.Search[i].Title
+                  let resultsType = res.Search[i].Type
+                  let resultsYear = res.Search[i].Year
+                  console.log(`Title: ${resultsTitle} Type: ${resultsType} Year: ${resultsYear}`)
+                }
               });
             }};
           });
