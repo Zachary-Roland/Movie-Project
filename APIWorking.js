@@ -49,6 +49,7 @@ document
                   newDiv.appendChild(linebr)
                   newDiv.appendChild(img)
                   document.getElementById("main").appendChild(newDiv);
+                  newDiv.classList.add("results")
                   
                   // Console log test to make sure it's working:
                   // console.log(`Title: ${resultsTitle} Type: ${resultsType} Year: ${resultsYear}`)
