@@ -166,7 +166,6 @@
           for (var radio of radios) {
             if (radio.checked) {
           type = "&type=" + radio.value;
-          console.log(type)
           fetch("http://www.omdbapi.com/?apikey=5d6248fb" + title + type + year)
           .then(function (response) {
                 console.log(response);
@@ -180,6 +179,7 @@
               });
             }};
           });
+          
     </script>
   </body>
 </html>
