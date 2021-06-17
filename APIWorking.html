@@ -5,75 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <style>
-      .flex {
-        display: flex;
-        flex-flow: row wrap;
-      }
-      aside {
-        background-color: lightblue;
-        flex-basis: 100%;
-        min-height: 30%;
-      }
-      main {
-        border: 3px solid blue;
-        flex-basis: 100%;
-        min-height: 70%;
-        text-align: center;
-      }
-      .testDiv {
-        flex-basis: 100%;
-        justify-content: center;
-      }
-      img {
-        width: 65%;
-      }
-      .radios {
-        flex-basis: 100%;
-        justify-content: space-around;
-      }
-      .radioOption {
-        flex-basis: calc(30%);
-      }
-      /* $grid-breakpoints: (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px, xxl: 1400px */
-      @media (min-width: 576px) {
-        aside {
-          flex-basis: calc(40% - 6px);
-          min-height: 100%;
-        }
-        main {
-          flex-basis: calc(60% - 6px);
-          min-height: 100%
-        }
-      }
-      @media (min-width: 768px) {
-        img {
-        width: 40%;
-      }
-        aside {
-          flex-basis: calc(35% - 6px);
-          min-height: 100%;
-        }
-        main {
-          flex-basis: calc(65% - 6px);
-          min-height: 100%
-        }
-      }
-      @media (min-width: 992px) {
-        aside {
-          flex-basis: calc(30% - 6px);
-          min-height: 100%;
-        }
-        main {
-          flex-basis: calc(70% - 6px);
-          min-height: 100%
-        }
-      }
-    </style>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;800;900&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="APIWorking.css">
   </head>
   <body>
     <div class="entirePage flex">
-      <aside>
+      <aside class="flex">
         <form>
           <div>
             <label for="search">Search:</label>
@@ -191,71 +129,12 @@
           </div>
           </div>
         </form>
-        <div class="testDiv">
+        <div class="buttonDiv flex">
           <button id="test">Search!</button>
         </div>
       </aside>
       <main id="main" ></main>
     </div>
-    <script>
-      document
-        .getElementById("test")
-        .addEventListener("click", function fetchTest() {
-          //remove prior results if any
-          const node = document.getElementById("main");
-          node.querySelectorAll('*').forEach(n => n.remove());
-          //set up variables for search results, with url snippets
-          const title = "&s=" + document.getElementById("searchBox").value;
-          const radios = document.getElementsByName("type");
-          //creat type variable to be used later
-          let type;
-          const e = document.getElementById("yearDropdown");
-          const year = "&y=" + e.value;
-          //make type equal to the checked radio button.
-          for (var radio of radios) {
-            if (radio.checked) {
-          type = "&type=" + radio.value;
-          //run search with user inputs
-          fetch("http://www.omdbapi.com/?apikey=5d6248fb" + title + type + year)
-          //log results
-          .then(function (response) {
-                console.log(response);
-                //if response is NOT ok show response status
-                if (!response.ok) {
-                  console.log(response.status);
-                }
-                return response.json();
-              })
-              .then(function (res) {
-                console.log(res); 
-                //TODO Could use a forEach instead of a for loop? Look into later
-                for (let i = 0; i < res.Search.length; i++) {
-                  //creat variables for each index of results
-                  let resultsTitle = res.Search[i].Title
-                  let resultsType = res.Search[i].Type
-                  let resultsYear = res.Search[i].Year
-                  // code to create divs to hold search results
-                  const main = document.getElementById("main");
-                  const div = document.createElement("div")
-                  //Add search results to the text of the new div
-                  let textContent = document.createTextNode(`${resultsTitle}, ${resultsType}, ${resultsYear}.`);
-                  const newDiv = document.getElementById("main").appendChild(div);
-                  let poster = res.Search[i].Poster;
-                  let img = document.createElement("img");
-                  let linebr = document.createElement("br")
-                  img.src = poster;
-                  img.title = "movie poster (broken image link)";
-                  newDiv.appendChild(textContent)
-                  newDiv.appendChild(linebr)
-                  newDiv.appendChild(img)
-                  document.getElementById("main").appendChild(newDiv);
-                  
-                  // Console log test to make sure it's working:
-                  // console.log(`Title: ${resultsTitle} Type: ${resultsType} Year: ${resultsYear}`)
-                }
-              });
-            }};
-          });
-    </script>
+    <script src="./APIWorking.js"></script>
   </body>
 </html>
