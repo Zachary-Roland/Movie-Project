@@ -98,18 +98,21 @@ img {
 }
 .results {
   background-color: #ffa270;
-  margin: 40px;
+  margin: 20px;
   padding: 5px;
   box-shadow: 2px 2px 1px #9e9e9e;
 }
 /* $grid-breakpoints: (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px, xxl: 1400px */
 @media (min-width: 576px) {
+  .results {
+    margin: 40px;
+  }
   header {
     font-size: 30px;
     line-height: 50px;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 769px) {
   .adaptHeight {
     align-items: stretch;
     /* height: 3950px; */
