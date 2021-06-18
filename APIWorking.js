@@ -29,7 +29,7 @@ document
                 return response.json();
               })
               .then(function (res) {
-                const resultLength = res.Search.length;
+                const resultLength = res.totalResults;
                 document.getElementById("main").innerText = `Showing 10 of ${resultLength} results:` 
                 //TODO Could use a forEach instead of a for loop? Look into later
                 for (let i = 0; i < res.Search.length; i++) {
