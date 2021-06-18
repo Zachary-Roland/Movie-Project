@@ -1,3 +1,8 @@
+html, body {
+    margin:0;
+    padding:0;
+    background-color: #e0e0e0;
+  }
 * {
     font-family: 'Montserrat', sans-serif;
     text-align: center;
@@ -6,10 +11,6 @@
     display: flex;
     flex-flow: row wrap;
   }
-body {
-  background-color: #e0e0e0;
-  margin: none;
-}
 header {
   background-color: #c63f17;
   font-size: 22px;
@@ -32,11 +33,11 @@ form {
     background-color: #4dd0e1;
     border-radius: 12px;
     border: none;
-    box-shadow: 0 6px #606060;
+    box-shadow: 4px 4px #606060;
 }
 #test:active {
     background-color: #009eae;
-    box-shadow: 0 3px #606060;
+    box-shadow: 3px 3px #606060;
     transform: translateY(4px);
 }
 .searchItems {
@@ -68,7 +69,7 @@ aside {
     background-color: #ff7043;
     flex-basis: 100%;
     min-height: 200px;
-    border-radius: 20px;
+    /* border-radius: 20px; */
     border-bottom: 3px;
     /* align-items: flex-start; */
 }
