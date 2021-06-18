@@ -30,7 +30,7 @@ document
               })
               .then(function (res) {
                 const resultLength = res.Search.length;
-                document.getElementById("main").innerText = `Your search returned ${resultLength} results:` 
+                document.getElementById("main").innerText = `Showing 10 of ${resultLength} results:` 
                 //TODO Could use a forEach instead of a for loop? Look into later
                 for (let i = 0; i < res.Search.length; i++) {
                   //creat variables for each index of results
@@ -41,7 +41,7 @@ document
                   const main = document.getElementById("main");
                   const div = document.createElement("div")
                   //Add search results to the text of the new div
-                  let textContent = document.createTextNode(`${resultsTitle}, ${resultsType}, ${resultsYear}.`);
+                  let textContent = document.createTextNode(`${resultsTitle} (${resultsType}, ${resultsYear})`);
                   const newDiv = document.getElementById("main").appendChild(div);
                   let poster = res.Search[i].Poster;
                   let img = document.createElement("img");
