@@ -9,15 +9,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800;900&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="APIWorking.css">
   </head>
-  <body>
+  <body class="textCenter">
     <header>
       IMDB Movie Search! 🍿🥤
     </header>
     <div class="flex">
+      <div class="flex adaptHeight">
       <aside class="aside flex">
         <div class="searchItems flex">
         <form class="form flex">
-          <div class="search">
+          <div class="flex100">
             <label for="search">
               <h4>Search:</h4></label>
             <input
@@ -27,7 +28,7 @@
               placeholder="Movie Title"
             />
           </div>
-          <div class="yearDropdown">
+          <div class="flex100">
             <label for="years"></label>
             <select id="yearDropdown" name="years">
               <option selected>Any</option>
@@ -119,7 +120,7 @@
               <option value="2025">2025</option>
             </select>
           </div>
-          <div class="radios flex">
+          <div class="radios flex flex100">
             <div class="radioOption">
             <input type="radio" name="type" id="Any" value="" checked="checked" />
             <label for="Any">Either</label>
@@ -134,12 +135,13 @@
           </div>
           </div>
         </form>
-        <div class="buttonDiv flex">
+        <div class="buttonDiv flex flex100">
           <button id="test">Search!</button>
         </div>
       </div>
       </aside>
-      <main class="main" id="main" ></main>
+    </div>
+      <main class="main flex textCenter" id="main" ></main>
     </div>
     <script src="./APIWorking.js"></script>
   </body>
