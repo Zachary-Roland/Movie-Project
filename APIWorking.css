@@ -136,9 +136,9 @@ img {
 }
 @media (min-width: 992px) {
   .adaptHeight {
-    height: 100%;
+    align-items: stretch;
     background-color: #ff7043;
-    height: 3950px;
+    /* height: 3950px; */
     flex-basis: calc(30% - 6px);
   }
   header {
